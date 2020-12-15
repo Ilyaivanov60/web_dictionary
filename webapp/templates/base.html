@@ -1,0 +1,17 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Translater</title>
+      {% else %}
+      <title>Welcome to Translator</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Translator:
+          <a href="/index">Home</a></div>
+          <a href="/login">Login </a>
+          <a href="/registration">Registration</a>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
