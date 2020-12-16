@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# config for web_app
+config.py
+
+#venv
+
+
 # Distribution / packaging
 .Python
 build/
