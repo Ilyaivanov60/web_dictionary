@@ -13,13 +13,5 @@
           <a href="/registration">Registration</a>
         <hr>
         {% block content %}{% endblock %}
-        <h1>Translater</h1>
-        <form action="" method="post">
-          <p>
-            {{ form.word_for_translate.label }}<br>
-            {{ form.word_for_translate(size=100) }}
-          </p>
-          <p>{{ form.confirm }}</p>
-        </form>
     </body>
 </html>
