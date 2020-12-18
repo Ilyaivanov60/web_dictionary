@@ -1,12 +1,13 @@
 from webapp import app
 from flask import render_template, flash, redirect
 from webapp.forms import LoginForm
+from webapp.get_translate import get_translate
 
 user = {'username': 'Илья'}
-cards = [
-    {'cat' : 'кот'},
-    {'dog' : 'собака, пес'}
-    ]
+cards = {
+    'cat': 'кот',
+    'dog': 'собака, пес'
+    }
 
 
 @app.route('/')
@@ -16,8 +17,8 @@ def index():
     form = LoginForm()
     if form.word_for_translate.data:
         word = form.word_for_translate.data
-        if word not in cards:
-            cards += [word]
+        if word not in cards.keys():
+            cards[word]=get_translate(word)
         return render_template('index.html', title='Home', user=user, cards=cards, form=form)
     return render_template('index.html', title='Home', user=user, cards=cards, form=form)
 
