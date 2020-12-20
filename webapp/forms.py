@@ -12,4 +12,8 @@ class LoginForm(FlaskForm):
     submit_in = SubmitField('Log in')
     submit_out = SubmitField('Log out')
     confirm = SubmitField('confirm')
+
+
+class WordForm(FlaskForm):
+    confirm = SubmitField('Перевести')
     word_for_translate = StringField('Введите слово для перевода', validators=[DataRequired()])

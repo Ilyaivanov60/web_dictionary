@@ -1,6 +1,6 @@
 from webapp import app
 from flask import render_template, flash, redirect
-from webapp.forms import LoginForm
+from webapp.forms import LoginForm, WordForm
 
 user = {'username': 'Илья'}
 cards = [
@@ -12,13 +12,11 @@ cards = [
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    global cards
-    form = LoginForm()
+    form = WordForm()
     if form.word_for_translate.data:
         word = form.word_for_translate.data
         if word not in cards:
-            cards += [word]
-        return render_template('index.html', title='Home', user=user, cards=cards, form=form)
+            cards.append(word)
     return render_template('index.html', title='Home', user=user, cards=cards, form=form)
 
 
