@@ -1,26 +1,27 @@
 from webapp import app
 from flask import render_template, flash, redirect
-from webapp.forms import LoginForm
+from webapp.forms import LoginForm, WordForm
+
+user = {'username': 'Илья'}
+cards = [
+    {'cat' : 'кот'},
+    {'dog' : 'собака, пес'}
+    ]
+
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 def index():
+    form = WordForm()
+    if form.word_for_translate.data:
+        word = form.word_for_translate.data
+        if word not in cards:
+            cards.append(word)
+    return render_template('index.html', title='Home', user=user, cards=cards, form=form)
 
-    user = {'username': 'Илья'}
-    cards = [
-        {'cat' : 'кот'},
-        {'dog' : 'собака, пес'},
-        {'car' : 'автомобиль, машина'},
-        {'bag' : 'сумка, мешок'},
-        {'bed' : 'кровать, постель}'},
-        {'box' : 'коробка, ящик'},
-        {'bottle' : 'бутылка'},
-        {'bank' : 'банк'},
-        {'book' : 'книга'}
-    ]
-    return render_template('index.html', title='Home', user=user, cards=cards)
 
 users_names = ['vasya','bill', 'oleg']# хранит имена пользователей для отладки, в будущем проверть зарегистрировван пользователь или нет через bd
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
