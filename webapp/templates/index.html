@@ -11,7 +11,15 @@
                 {% endfor %}
             </div>
             {% endif %}
-        {% endwith %}
+        {% endwith %} 
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.word_for_translate.label }}
+                {{ form.word_for_translate }}
+            </div>
+            {{ form.submit() }}
+        </form>
         {% for card in cards %}
         <div><p>{{ card }}</p></div>
         {% endfor %}

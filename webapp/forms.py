@@ -11,8 +11,8 @@ class LoginForm(FlaskForm):
 
 
 class WordForm(FlaskForm):
-    confirm = SubmitField('Перевести', render_kw={"class": "btn btn-primary"})
-    word_for_translate = StringField('Введите слово для перевода', validators=[DataRequired()], ender_kw={"class": "form-control"})
+    submit = SubmitField('Перевести', render_kw={"class": "btn btn-primary"})
+    word_for_translate = StringField('Введите слово для перевода', validators=[DataRequired()], render_kw={"class": "form-control"})
 
 
 class RegistrationForm(FlaskForm):

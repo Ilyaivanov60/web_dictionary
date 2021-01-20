@@ -26,7 +26,8 @@ def create_app():
     def index():
         title = "Переводчик"
         cards_db = Cards.query.all()
-        return render_template('index.html', page_title=title, cards=cards_db)
+        word_form = WordForm()
+        return render_template('index.html', page_title=title, cards=cards_db, form=word_form)
 
     @app.route('/login')
     def login():
