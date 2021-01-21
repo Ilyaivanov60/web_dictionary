@@ -26,4 +26,4 @@ class Cards(db.Model):
     translatted_word = db.Column(db.String(140))
 
     def __repr__(self):
-        return '<Word={} traslatted={}>'.format(self.original_word, self.translatted_word)
+        return f'Word={self.original_word}, traslated={self.translatted_word}'
