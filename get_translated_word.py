@@ -1,6 +1,6 @@
 import requests
 import json
-from webapp.config import API_KEY, URL_AUT, URL_TRANSLATE
+from webapp.config import API_KEY, URL_AUT, URL_TRANSLATE, RULang, ENLang
 
 
 def get_token():
@@ -13,13 +13,13 @@ def get_token():
         print('Сетивая ошибка')
         return False
 
-def get_translate(word):
+def get_translation(word):
     try:
         headers = {'Authorization': 'Bearer ' + get_token()}
         params = {
             'text': word,
-            'srcLang': 1033,
-            'dstLang': 1049
+            'srcLang': ENLang,
+            'dstLang': RULang
         }
         req = requests.get(URL_TRANSLATE, headers=headers, params=params)
         data = req.json()
