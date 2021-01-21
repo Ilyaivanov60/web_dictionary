@@ -31,7 +31,7 @@ def create_app():
     @app.route('/word')
     def word():
         title = "Переводчик"
-        cards_db = Cards.query.all()
+        cards_db = Cards.query.filter(Cards.user_id==current_user.get_id()).all()
         word_form = WordForm()
         if current_user.is_authenticated:
             return render_template('word.html', page_title=title, cards=cards_db, form=word_form)
@@ -45,7 +45,8 @@ def create_app():
         word_exist_in_db = Cards.query.filter(Cards.original_word==form.word_for_translate.data).count()
         if not word_exist_in_db:
             if form.validate_on_submit():
-                new_word = Cards(original_word=form.word_for_translate.data, translatted_word=get_translation(form.word_for_translate.data))
+                user_id = current_user.get_id()
+                new_word = Cards(original_word=form.word_for_translate.data, translatted_word=get_translation(form.word_for_translate.data), user_id=user_id)
                 db.session.add(new_word)
                 db.session.commit()
                 flash('Вы успешно добавили слово!')
