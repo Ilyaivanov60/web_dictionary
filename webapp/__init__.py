@@ -42,17 +42,17 @@ def create_app():
     @app.route('/word_process', methods=["POST"])
     def word_process():
         form = WordForm()
-        word_exist_in_db = Cards.query.filter(Cards.original_word==form.word_for_translate.data).count()
+        user_id = current_user.get_id()
+        word_exist_in_db = Cards.query.filter(Cards.original_word==form.word_for_translate.data, Cards.user_id==user_id).count()
         if not word_exist_in_db:
             if form.validate_on_submit():
-                user_id = current_user.get_id()
                 new_word = Cards(original_word=form.word_for_translate.data, translatted_word=get_translation(form.word_for_translate.data), user_id=user_id)
                 db.session.add(new_word)
                 db.session.commit()
                 flash('Вы успешно добавили слово!')
                 return redirect(url_for('word'))
         else:
-            flash('слово уже в db')
+            flash('Слово уже в вашем словаре')
             return redirect(url_for('word'))
 
     @app.route('/login')
