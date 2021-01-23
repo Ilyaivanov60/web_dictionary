@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
 
 class Cards(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
     original_word = db.Column(db.String(30))
     translatted_word = db.Column(db.String(140))
 

@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, flash, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user
 from flask_migrate import Migrate
 
-from get_translated_word import get_translate
+from get_translated_word import get_translation
 from webapp.db import db
 from webapp.model import User, Cards
 from webapp.forms import LoginForm, RegistrationForm, WordForm
@@ -31,7 +31,7 @@ def create_app():
     @app.route('/word')
     def word():
         title = "Переводчик"
-        cards_db = Cards.query.all()
+        cards_db = Cards.query.filter(Cards.user_id==current_user.get_id()).all()
         word_form = WordForm()
         if current_user.is_authenticated:
             return render_template('word.html', page_title=title, cards=cards_db, form=word_form)
@@ -42,17 +42,22 @@ def create_app():
     @app.route('/word_process', methods=["POST"])
     def word_process():
         form = WordForm()
-        word_exist_in_db = Cards.query.filter(Cards.original_word==form.word_for_translate.data).count()
+        user_id = current_user.get_id()
+        word_exist_in_db = Cards.query.filter(Cards.original_word==form.word_for_translate.data, Cards.user_id==user_id).count()
         if not word_exist_in_db:
             if form.validate_on_submit():
-                new_word = Cards(original_word=form.word_for_translate.data, translatted_word=get_translate(form.word_for_translate.data))
-                db.session.add(new_word)
-                db.session.commit()
-                flash('Вы успешно добавили слово!')
-                return redirect(url_for('word'))
+                translation = get_translation(form.word_for_translate.data)
+                if translation:
+                    print(translation)
+                    new_word = Cards(original_word=form.word_for_translate.data, translatted_word=translation, user_id=user_id)
+                    db.session.add(new_word)
+                    db.session.commit()
+                    flash('Вы успешно добавили слово!')
+                else:
+                    flash('Не найден перевод')
         else:
-            flash('слово уже в db')
-            return redirect(url_for('word'))
+            flash('Слово уже в вашем словаре')
+        return redirect(url_for('word'))
 
     @app.route('/login')
     def login():

@@ -10,7 +10,7 @@ __pycache__/
 config.py
 env/
 .idea
-
+webapp.db
 
 # Distribution / packaging
 .Python
