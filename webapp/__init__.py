@@ -46,14 +46,18 @@ def create_app():
         word_exist_in_db = Cards.query.filter(Cards.original_word==form.word_for_translate.data, Cards.user_id==user_id).count()
         if not word_exist_in_db:
             if form.validate_on_submit():
-                new_word = Cards(original_word=form.word_for_translate.data, translatted_word=get_translation(form.word_for_translate.data), user_id=user_id)
-                db.session.add(new_word)
-                db.session.commit()
-                flash('Вы успешно добавили слово!')
-                return redirect(url_for('word'))
+                translation = get_translation(form.word_for_translate.data)
+                if translation:
+                    print(translation)
+                    new_word = Cards(original_word=form.word_for_translate.data, translatted_word=translation, user_id=user_id)
+                    db.session.add(new_word)
+                    db.session.commit()
+                    flash('Вы успешно добавили слово!')
+                else:
+                    flash('Не найден перевод')
         else:
             flash('Слово уже в вашем словаре')
-            return redirect(url_for('word'))
+        return redirect(url_for('word'))
 
     @app.route('/login')
     def login():
