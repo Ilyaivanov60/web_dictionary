@@ -12,17 +12,23 @@
             </div>
             {% endif %}
         {% endwith %} 
-        <form action="{{ url_for('word_process') }}" method="POST">
+        <form action="{{ url_for('add_word') }}" method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.word_for_translate.label }}
                 {{ form.word_for_translate }}
             </div>
+        <div class="form-group">
             {{ form.submit() }}
+        </div>
         </form>
-        {% for card in cards %}
-        <div><p>{{ card }}</p></div>
-        {% endfor %}
+            {% for card in cards %}
+            <div class="card">
+                <div class="card-body">
+                    <div><p>{{ card.original_word }} {{ card.translatted_word }}</p></div>
+                </div>
+            </div>
+            {% endfor %}
     </div>
     <div class="col-8">
 

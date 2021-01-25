@@ -8,6 +8,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), index=True, unique=True)
     password = db.Column(db.String(128))
     role = db.Column(db.String(10), index=True)
+    email = db.Column(db.String(50), unique=True)
 
 
     def set_password(self, password):
@@ -27,4 +28,4 @@ class Cards(db.Model):
     translatted_word = db.Column(db.String(140))
 
     def __repr__(self):
-        return f'Word={self.original_word}, traslated={self.translatted_word}'
+        return f"{self.original_word}: {self.translatted_word}: id={self.id}"
