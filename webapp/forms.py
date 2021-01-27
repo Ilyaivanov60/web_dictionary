@@ -17,6 +17,7 @@ class WordForm(FlaskForm):
     transleted_word = StringField('Перевод', render_kw={"class": "form-control"})
     add = SubmitField('Добавить', render_kw={"class": "btn btn-primary"})
     edit = SubmitField('Редактировать', render_kw={"class": "btn btn-primary"})
+    delete = SubmitField('Удалить', render_kw={"class": "btn btn-primary"})
 
 
 class RegistrationForm(FlaskForm):

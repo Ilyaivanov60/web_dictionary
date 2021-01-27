@@ -58,7 +58,7 @@ def create_app():
             else:
                 flash('Слово уже в вашем словаре')
             return redirect(url_for('my_dictionary'))
-        else:
+        elif form.submit.data:
             translation = get_translation(form.word_for_translate.data)
             if translation:
                 trnlated_word = translation
@@ -67,6 +67,15 @@ def create_app():
             else:
                 flash('Не найден перевод')
             return redirect(url_for('my_dictionary'))
+
+    @app.route('/delete_word/<int:word_id>')
+    def delete_word(word_id):
+        user_id = current_user.get_id()
+        word_to_del = Cards.query.filter(Cards.id==word_id, Cards.user_id==user_id).first()
+        db.session.delete(word_to_del)
+        db.session.commit()
+        flash ("Вы успешно удалили слово")
+        return redirect(url_for('my_dictionary')) 
 
     @app.route('/word_edit/<int:word_id>', methods=['POST', 'GET'])
     def word_edit(word_id):

@@ -19,14 +19,15 @@
                 {% endif %}
             {% endwith %}
         <div class="form-group">
-            {{ form.add() }} {{ form.submit() }}
+            {{ form.submit() }} {{ form.add() }}
         </div>
         </form>
             {% for card in cards %}
             <div class="card">
                 <div class="card-body">
                     <div><p>{{ card.original_word }} {{ card.translatted_word }}</p></div>
-                    <a class="nav-link" href="{{ url_for('word_edit', word_id=card.id) }}">редактировать</span></a>
+                    <a class="btn btn-primary" href="{{ url_for('word_edit', word_id=card.id) }}">редактировать</span></a>
+                    <a class="btn btn-primary" href="{{ url_for('delete_word', word_id=card.id) }}">удалить</span></a>
                 </div>
             </div>
             {% endfor %}
