@@ -23,14 +23,14 @@
             <span class="nav-link">Привет, {{current_user.username}}</span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout') }}">Выйти</a>
+            <a class="nav-link" href="{{ url_for('user.logout') }}">Выйти</a>
           </li>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('registration') }}">Регистрация</a>
+            <a class="nav-link" href="{{ url_for('user.registration') }}">Регистрация</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Войти</a>
+            <a class="nav-link" href="{{ url_for('user.login') }}">Войти</a>
           </li>
         {% endif %}
       </ul>
