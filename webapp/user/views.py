@@ -10,10 +10,11 @@ blueprint = Blueprint('user', __name__, url_prefix='/users')
 @blueprint.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        print('1')
+        return redirect(url_for('word.index'))
     form = LoginForm()
     title = 'Авторизация'
-    return render_template('login.html', page_title=title, form=form)
+    return render_template('user/login.html', page_title=title, form=form)
 
 @blueprint.route('/process_login', methods=['POST'])
 def process_login():
@@ -23,7 +24,7 @@ def process_login():
         if user and user.check_password(form.password.data):
             login_user(user)
             flash('вы успешно вошли на сайт')
-            return redirect(url_for('index'))
+            return redirect(url_for('word.index'))
 
     flash('неправильный имя или пароль')
     return redirect(url_for('user.login'))
@@ -32,18 +33,18 @@ def process_login():
 def logout():
     logout_user()
     flash('Вы успешно разлогины')
-    return redirect(url_for('index'))
+    return redirect(url_for('word.index'))
 
 
 
 @blueprint.route('/registration')
 def registration():
     if current_user.is_authenticated:
-        return redirect(url_for('index')) 
+        return redirect(url_for('word.index')) 
     else:
         form_reg = RegistrationForm()
         title = "Регистрация"
-        return render_template('registration.html', page_title=title, form=form_reg)
+        return render_template('user/registration.html', page_title=title, form=form_reg)
 
 @blueprint.route('/process_reg', methods=['POST'])
 def process_reg():
@@ -54,7 +55,7 @@ def process_reg():
         db.session.add(new_user)
         db.session.commit()
         flash('Вы успешно зарегистрировались!')
-        return redirect(url_for('index'))
+        return redirect(url_for('word.index'))
     else:
         for field, errors in form.errors.items():
             for error in errors:

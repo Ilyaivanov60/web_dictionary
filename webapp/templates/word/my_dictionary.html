@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <div class="col-4">
-        <form action="{{ url_for('add_word') }}" method="POST">
+        <form action="{{ url_for('word.add_word') }}" method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.word_for_translate.label }}
@@ -26,8 +26,8 @@
             <div class="card">
                 <div class="card-body">
                     <div><p>{{ card.original_word }} {{ card.translatted_word }}</p></div>
-                    <a class="btn btn-primary" href="{{ url_for('word_edit', word_id=card.id) }}">редактировать</span></a>
-                    <a class="btn btn-primary" href="{{ url_for('delete_word', word_id=card.id) }}">удалить</span></a>
+                    <a class="btn btn-primary" href="{{ url_for('word.word_edit', word_id=card.id) }}">редактировать</span></a>
+                    <a class="btn btn-primary" href="{{ url_for('word.delete_word', word_id=card.id) }}">удалить</span></a>
                 </div>
             </div>
             {% endfor %}
