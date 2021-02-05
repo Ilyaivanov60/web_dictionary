@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            <form action="" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    Слово
+                    {{ form.word_for_translate  }} 
+                </div>
+                <div class="form-group">
+                    Перевод
+                    {{ form.transleted_word }}
+                </div>
+                {{ form.edit() }}
+            </form>
+        </div>
+        <div class="col-8">
+            
+        </div>
+    </div>
+{% endblock %}

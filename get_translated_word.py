@@ -29,6 +29,3 @@ def get_translation(word):
             return False
     except(requests.RequestException):
         return False
-
-if __name__ == '__main__':
-    print(get_translation('ghlls'))

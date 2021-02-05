@@ -11,6 +11,7 @@ config.py
 env/
 .idea
 webapp.db
+migrations/
 
 # Distribution / packaging
 .Python
